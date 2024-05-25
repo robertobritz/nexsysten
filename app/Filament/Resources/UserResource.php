@@ -7,6 +7,7 @@ use App\Filament\Resources\UserResource\RelationManagers;
 use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Models\Contracts\FilamentUser;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -14,7 +15,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Facades\Hash;
 
-class UserResource extends Resource
+class UserResource extends Resource implements FilamentUser
 {
     protected static ?string $model = User::class;
 
@@ -37,7 +38,12 @@ class UserResource extends Resource
                     ->label('Senha')
                     ->dehydrateStateUsing(fn ($state) => Hash::make($state))
                     ->dehydrated(fn ($state) => filled($state))
-                    ->required(fn (string $context): bool => $context === 'create')
+                    ->required(fn (string $context): bool => $context === 'create'),
+                Forms\Components\Select::make('roles')
+                ->multiple()
+                ->relationship('roles', 'name')
+                ->preload(),
+
             ]);
     }
 
