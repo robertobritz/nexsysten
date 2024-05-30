@@ -49,6 +49,7 @@ class MachineCategoryResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -57,19 +58,10 @@ class MachineCategoryResource extends Resource
             ]);
     }
 
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
-    }
-
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListMachineCategories::route('/'),
-            'create' => Pages\CreateMachineCategory::route('/create'),
-            'edit' => Pages\EditMachineCategory::route('/{record}/edit'),
+            'index' => Pages\ManageMachineCategories::route('/'),
         ];
     }
 }
