@@ -32,11 +32,14 @@ class MachineResource extends Resource
                 Forms\Components\TextInput::make('producer')
                     ->required()
                     ->maxLength(255),
+                Forms\Components\Select::make('machine_category_id')
+                    ->label('Categoria')
+                    ->relationship('machineCategory', 'name')
+                    ->preload(),
                 Forms\Components\FileUpload::make('image')
                     ->image(),
                 Forms\Components\FileUpload::make('catalogue')
                     ->label('Catálogo Max 2Mb')
-                    ->multiple()
                     ->downloadable()
                     ->openable(),
 
@@ -50,8 +53,16 @@ class MachineResource extends Resource
                 Tables\Columns\ImageColumn::make('image')
                     ->height(100),
                 Tables\Columns\TextColumn::make('description')
-                    ->searchable(),
+                    ->searchable()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('machineCategory.name') // Acessa o nome da categoria através da relação
+                    ->label('Categoria') // Adiciona um rótulo apropriado
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('producer')
+                    ->searchable()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('machineCategory.name') // Acessa o nome da categoria através da relação
+                    ->label('Categoria') // Adiciona um rótulo apropriado
                     ->searchable(),
                 Tables\Columns\TextColumn::make('catalogue')
                     ->toggleable(isToggledHiddenByDefault: true),

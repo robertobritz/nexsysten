@@ -14,6 +14,12 @@ class Machine extends Model
         'producer',
         'image',
         'catalogue',
+        'machine_category_id',
     ];
+
+    public function machineCategory()
+    {
+        return $this->belongsTo(MachineCategory::class, 'machine_category_id');
+    }
 
 }

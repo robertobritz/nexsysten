@@ -16,8 +16,14 @@ return new class extends Migration
             $table->string('description')->required();
             $table->string('producer')->required();
             $table->string('image')->nullable();
+            $table->unsignedBigInteger('machine_category_id')->nullable();
             $table->string('catalogue')->nullable();
             $table->timestamps();
+
+            $table->foreign('machine_category_id')
+                ->references('id')
+                ->on('machine_categories')
+                ->onDelete('set null');;
         });
     }
 
