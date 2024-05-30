@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('description')->required();
             $table->string('producer')->required();
             $table->string('image')->nullable();
-            $table->string('manual')->nullable();
+            $table->string('catalogue')->nullable();
             $table->timestamps();
         });
     }

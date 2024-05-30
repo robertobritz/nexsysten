@@ -13,6 +13,7 @@ class Machine extends Model
         'description',
         'producer',
         'image',
-        'manual',
+        'catalogue',
     ];
+
 }
