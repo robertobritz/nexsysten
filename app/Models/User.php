@@ -49,10 +49,15 @@ class User extends Authenticatable implements FilamentUser
         ];
     }
 
-    public function canAccessPanel(Panel $panel): bool
+    public function canAccessPanel(Panel $panel): bool // Local onde é possível barrar o acesso de quem não estiver no domínio
     {
         return true;
         //return str_ends_with($this->email, '@nex.eco.br'); //&& $this->hasVerifiedEmail(); Local para limitar quem pode se cadastrar no sistema
+    }
+
+    public function machines()
+    {
+        return $this->belongsToMany(Machine::class, 'user_machines');
     }
 
 }
